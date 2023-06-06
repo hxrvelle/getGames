@@ -13,7 +13,7 @@ public class Games {
 
         String sportId;
         for (int i = 0; i < sportIds.size(); i++) {
-            sportId = sportIds.get(i).toString();
+            sportId = sportIds.get(i);
             String path = "https://1xbet.es/LineFeed/Get1x2_VZip?sports=" + sportId + "&count=1000&lng=es&tf=2200000&tz=3&mode=4&country=78&partner=229&getEmpty=true";
             JSONObject jsonObject = SendRequest.getData(path);
             JSONArray jsonArray = (JSONArray) jsonObject.get("Value");

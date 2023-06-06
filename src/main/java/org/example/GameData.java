@@ -10,15 +10,13 @@ import java.util.ArrayList;
 public class GameData {
     public static ArrayList<String> getGameData (ArrayList<String> gameIds) throws IOException, ParseException {
         ArrayList<String> gameData = new ArrayList<>();
-
         //Игры
         for (int i = 0; i < gameIds.size(); i++) {
-            String gameId = gameIds.get(i).toString();
+            String gameId = gameIds.get(i);
             String path = "https://1xbet.es/LineFeed/GetGameZip?id=" + gameId + "&lng=es&cfview=0&isSubGames=true&GroupEvents=true&allEventsGroupSubGames=true&countevents=250&partner=229";
             JSONObject jsonObject = SendRequest.getData(path);
             if (!jsonObject.containsValue("¡El partido no se encuentra en Deportes!")) {
                 jsonObject = (JSONObject) jsonObject.get("Value");
-
                 // Команды
                 String team1 = jsonObject.get("O1").toString();
                 String team2;
@@ -26,12 +24,10 @@ public class GameData {
                 else team2 = "";
                 String sportName = jsonObject.get("SN").toString();
                 String champName = jsonObject.get("L").toString();
-
                 if (team1.matches(".*\\p{InCyrillic}.*") || team2.matches(".*\\p{InCyrillic}.*")) {
                     String data = "Команды: " + sportName + " - " + champName + " - " + team1 + " & " + team2;
                     gameData.add(data);
                 }
-
                 // Ставки
                 if (jsonObject.containsKey("GE")) {
                     JSONArray jsonArray = (JSONArray) jsonObject.get("GE");
@@ -54,7 +50,6 @@ public class GameData {
                         }
                     }
                 }
-
                 // Осадки
                 if (jsonObject.toString().contains("Осадки, %")) {
                     String precipitacion = "Осадки: " + sportName + " - " + champName + " - " + team1 + " & " + team2;
