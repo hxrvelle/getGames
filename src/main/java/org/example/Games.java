@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class Games {
     public static ArrayList<String> getGames (ArrayList<String> sportIds) throws IOException, ParseException {
         ArrayList<String> gameIds = new ArrayList<>();
-
         String sportId;
         for (int i = 0; i < sportIds.size(); i++) {
             sportId = sportIds.get(i);

@@ -11,7 +11,6 @@ public class Sports {
     public static ArrayList<String> getSports () throws IOException, ParseException {
         ArrayList<String> sportIds = new ArrayList<>();
         ArrayList<String> allSportIds = new ArrayList<>();
-
         String path = "https://1xbet.es/LineFeed/GetSportsShortZip?lng=es&tf=2200000&tz=3&country=78&partner=229&virtualSports=true";
         JSONObject jsonObject = SendRequest.getData(path);
         JSONArray jsonArray = (JSONArray) jsonObject.get("Value");
