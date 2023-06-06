@@ -30,7 +30,6 @@ public class Main {
                     gameIds.addAll(subGameIds);
                     // Получение данных игр
                     ArrayList<String> gameData = GameData.getGameData(gameIds);
-                    System.out.println(gameData.size());
                     PrintWriter printWriter = new PrintWriter(new FileOutputStream("/Users/hxrvelle/Desktop/RU/ru-lang-" + date + ".txt", true));
                     for (int i = 0; i < gameData.size(); i++) {
                         String data = gameData.get(i);

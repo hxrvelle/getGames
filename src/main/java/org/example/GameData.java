@@ -26,7 +26,7 @@ public class GameData {
                 String champName = jsonObject.get("L").toString();
                 if (team1.matches(".*\\p{InCyrillic}.*") || team2.matches(".*\\p{InCyrillic}.*")) {
                     String data = "Команды: " + sportName + " - " + champName + " - " + team1 + " & " + team2;
-                    gameData.add(data);
+                    gameData.add(data + "\n");
                 }
                 // Ставки
                 if (jsonObject.containsKey("GE")) {
@@ -43,7 +43,7 @@ public class GameData {
                                     String bet = jsonObject2.get("N").toString();
                                     if (bet.matches(".*\\p{InCyrillic}.*")) {
                                         String betData = "Ставки: " + sportName + " - " + champName + " - " + team1 + " & " + team2 + " - " + bet;
-                                        gameData.add(betData);
+                                        gameData.add(betData + "\n");
                                     }
                                 }
                             }
@@ -53,7 +53,7 @@ public class GameData {
                 // Осадки
                 if (jsonObject.toString().contains("Осадки, %")) {
                     String precipitacion = "Осадки: " + sportName + " - " + champName + " - " + team1 + " & " + team2;
-                    gameData.add(precipitacion);
+                    gameData.add(precipitacion + "\n");
                 }
             }
         }
