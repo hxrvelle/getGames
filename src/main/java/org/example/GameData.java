@@ -17,16 +17,20 @@ public class GameData {
             JSONObject jsonObject = SendRequest.getData(path);
             if (!jsonObject.containsValue("¡El partido no se encuentra en Deportes!")) {
                 jsonObject = (JSONObject) jsonObject.get("Value");
+                String sportName = jsonObject.get("SN").toString();
+                String champName = jsonObject.get("L").toString();
+                String marketName;
+                if (jsonObject.get("TG") != null) marketName = jsonObject.get("TG").toString();
+                else marketName = "";
                 // Команды
                 String team1 = jsonObject.get("O1").toString();
                 String team2;
                 if (jsonObject.get("O2") != null) team2 = jsonObject.get("O2").toString();
                 else team2 = "";
-                String sportName = jsonObject.get("SN").toString();
-                String champName = jsonObject.get("L").toString();
                 if (team1.matches(".*\\p{InCyrillic}.*") || team2.matches(".*\\p{InCyrillic}.*")) {
                     String data = "Команды: " + sportName + " - " + champName + " - " + team1 + " & " + team2;
-                    gameData.add(data + "\n");
+                    gameData.add(data);
+                    gameData.add("Запрос: " + path + "\n");
                 }
                 // Ставки
                 if (jsonObject.containsKey("GE")) {
@@ -42,8 +46,9 @@ public class GameData {
                                     jsonObject2 = (JSONObject) jsonObject2.get("PL");
                                     String bet = jsonObject2.get("N").toString();
                                     if (bet.matches(".*\\p{InCyrillic}.*")) {
-                                        String betData = "Ставки: " + sportName + " - " + champName + " - " + team1 + " & " + team2 + " - " + bet;
-                                        gameData.add(betData + "\n");
+                                        String betData = "Ставки: " + sportName + " - " + champName + " - " + team1 + " & " + team2 + " - " + marketName + " - " + bet;
+                                        gameData.add(betData);
+                                        gameData.add("Запрос: " + path + "\n");
                                     }
                                 }
                             }
@@ -53,7 +58,8 @@ public class GameData {
                 // Осадки
                 if (jsonObject.toString().contains("Осадки, %")) {
                     String precipitacion = "Осадки: " + sportName + " - " + champName + " - " + team1 + " & " + team2;
-                    gameData.add(precipitacion + "\n");
+                    gameData.add(precipitacion);
+                    gameData.add("Запрос: " + path + "\n");
                 }
             }
         }
